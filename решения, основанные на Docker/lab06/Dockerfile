@@ -1,11 +1,13 @@
 FROM alt:p11
 
+# Задание 7.1. Устанавливаем Osec, утилиты для отчётов, cron и редактор.
 RUN set -eu; \
     apt-get update; \
     apt-get install -y nano osec osec-mailreport util-linux vixie-cron; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/*
 
+# Задания 7.2–7.3 и 7.6. Готовим файлы и каталог базы, отключаем штатное расписание Osec.
 RUN set -eu; \
     install -d -m 0755 /etc/lab06 /home/lab06-baseline /home/test3; \
     install -d -o osec -g osec -m 0750 /var/lib/lab06-osec; \
@@ -17,6 +19,8 @@ RUN set -eu; \
 
 COPY dirs.conf /etc/lab06/dirs.conf
 COPY run-osec.sh /usr/local/sbin/lab06-run-osec
+
+# Подготовка к проверкам. Список путей открыт для чтения, скрипт доступен для запуска.
 RUN chmod 0644 /etc/lab06/dirs.conf && chmod 0755 /usr/local/sbin/lab06-run-osec
 
 ENV EDITOR=nano
