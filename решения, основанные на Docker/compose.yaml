@@ -21,14 +21,16 @@ services:
         ipv4_address: 192.168.101.12
 
   lab02:
-    build: ./lab02
+    build:
+      context: ./lab02
+      dockerfile: wkr1/Dockerfile
     hostname: wrk1
     init: true
 
   lab02-wrk2:
     build:
       context: ./lab02
-      target: base
+      dockerfile: wkr2/Dockerfile
     hostname: wrk2
     init: true
 
