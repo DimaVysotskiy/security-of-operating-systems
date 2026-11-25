@@ -1,18 +1,9 @@
 FROM alt:p11
 
-ARG ALT_APT_MIRROR
-
 RUN set -eu; \
-    set --; \
-    if [ -n "${ALT_APT_MIRROR:-}" ]; then \
-        awk -v mirror="${ALT_APT_MIRROR%/}" '$1 == "rpm" && $4 !~ /-i586$/ { $3 = mirror; print }' \
-            /etc/apt/sources.list.d/alt.list > /tmp/lab-apt.list; \
-        set -- -o Dir::Etc::sourcelist=/tmp/lab-apt.list -o Dir::Etc::sourceparts=-; \
-    fi; \
-    apt-get "$@" update; \
-    apt-get "$@" install -y acl; \
+    apt-get update; \
+    apt-get install -y acl; \
     apt-get clean; \
-    rm -f /tmp/lab-apt.list; \
     rm -rf /var/lib/apt/lists/*
 
 RUN set -eu; \

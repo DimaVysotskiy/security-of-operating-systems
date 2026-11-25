@@ -1,11 +1,8 @@
 name: security-labs
 
 services:
-  lab01:
-    build: &lab01-build
-      context: ./lab01
-      args:
-        ALT_APT_MIRROR: ${ALT_APT_MIRROR:-}
+  lab01-wrk1:
+    build: ./lab01
     hostname: wrk1
     init: true
     cap_add: [NET_ADMIN]
@@ -15,8 +12,7 @@ services:
         ipv4_address: 192.168.101.11
 
   lab01-wrk2:
-    profiles: [lab01-peer]
-    build: *lab01-build
+    build: ./lab01
     hostname: wrk2
     init: true
     networks:
@@ -25,28 +21,19 @@ services:
         ipv4_address: 192.168.101.12
 
   lab02:
-    build:
-      context: ./lab02
-      args:
-        ALT_APT_MIRROR: ${ALT_APT_MIRROR:-}
+    build: ./lab02
     hostname: wrk1
     init: true
 
   lab02-wrk2:
-    profiles: [wrk2]
     build:
       context: ./lab02
       target: base
-      args:
-        ALT_APT_MIRROR: ${ALT_APT_MIRROR:-}
     hostname: wrk2
     init: true
 
   lab03:
-    build:
-      context: ./lab03
-      args:
-        ALT_APT_MIRROR: ${ALT_APT_MIRROR:-}
+    build: ./lab03
     hostname: wrk1
     init: true
 
@@ -56,18 +43,12 @@ services:
     init: true
 
   lab05:
-    build:
-      context: ./lab05
-      args:
-        ALT_APT_MIRROR: ${ALT_APT_MIRROR:-}
+    build: ./lab05
     hostname: wrk1
     init: true
 
   lab06:
-    build:
-      context: ./lab06
-      args:
-        ALT_APT_MIRROR: ${ALT_APT_MIRROR:-}
+    build: ./lab06
     hostname: wrk1
     init: true
 

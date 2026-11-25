@@ -5,7 +5,7 @@
 Из каталога с `compose.yaml`:
 
 ```bash
-docker compose up -d --build lab02
+docker compose up -d --build lab02 lab02-wrk2
 docker compose exec lab02 bash
 ```
 
@@ -118,14 +118,13 @@ chage -l user4
 
 ## 3.10–3.11. Повторите настройку на `wrk2`
 
-В отдельном терминале из каталога с `compose.yaml`:
+Вторая станция уже работает. Откройте её оболочку в отдельном терминале из каталога с `compose.yaml`:
 
 ```bash
-docker compose --profile wrk2 up -d --build lab02-wrk2
-docker compose --profile wrk2 exec lab02-wrk2 bash
+docker compose exec lab02-wrk2 bash
 ```
 
-Здесь установлены те же инструменты, но учебные настройки и пользователи ещё не созданы. Посмотрите шаблоны в `/usr/local/share/lab02`, примените настройки командой `bash /usr/local/share/lab02/configure.sh` и сверьте значения по заданиям 3.1–3.4. Затем самостоятельно создайте `user1`–`user4` через `useradd` по образцу 3.9, задайте им те же учебные пароли, что действуют на `wrk1`, и проверьте вход с хоста командой `docker compose --profile wrk2 exec lab02-wrk2 login user1`.
+Здесь установлены те же инструменты, но учебные настройки и пользователи ещё не созданы. Посмотрите шаблоны в `/usr/local/share/lab02`, примените настройки командой `bash /usr/local/share/lab02/configure.sh` и сверьте значения по заданиям 3.1–3.4. Затем самостоятельно создайте `user1`–`user4` через `useradd` по образцу 3.9, задайте им те же учебные пароли, что действуют на `wrk1`, и проверьте вход с хоста командой `docker compose exec lab02-wrk2 login user1`.
 
 ## Отчёт и контрольные вопросы
 
