@@ -53,6 +53,8 @@ services:
     build: ./lab06
     hostname: wrk1
     init: true
+    volumes:
+      - /home
 
 networks:
   lab01-uplink:

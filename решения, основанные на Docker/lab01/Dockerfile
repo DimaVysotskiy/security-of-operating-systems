@@ -5,7 +5,7 @@ RUN set -eu; \
     apt-get update; \
     apt-get install -y apt-repo diffutils ethtool iproute2 iputils nano net-tools; \
     apt-get clean; \
-    rm -rf /var/lib/apt/lists/*
+    find /var/lib/apt/lists -type f -delete
 
 # Задание 2.1. Создаём учётную запись для лабораторной.
 RUN useradd -U -m -s /bin/bash admin

@@ -117,10 +117,11 @@ done
 
 ### 5.4. Исследуйте влияние `umask`
 
-Настройте маску для новых сеансов Bash через `/etc/profile.d/`. Откройте новый сеанс, чтобы применить её:
+Настройте маску для новых сеансов Bash через `/etc/profile.d/`. В ALT системный профиль читает исполняемые файлы `*.sh`, поэтому задайте файлу режим `0755`. Откройте новый сеанс, чтобы применить маску:
 
 ```bash
 printf '%s\n' 'umask 002' > /etc/profile.d/zz-lab04-umask.sh
+chmod 0755 /etc/profile.d/zz-lab04-umask.sh
 runuser -l user2 -c 'umask; cd /home/work/total_data && echo "Файл user2" > test2.txt && ls -l test2.txt'
 runuser -u user1 -- bash -c 'echo "Изменение от user1" >> /home/work/total_data/test2.txt'
 runuser -l user3 -c 'umask; cd /home/work/daily_data && echo "Файл user3" > test3.txt && ls -l test3.txt'

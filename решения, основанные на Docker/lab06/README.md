@@ -33,7 +33,7 @@ docker compose up -d --build lab06
 docker compose exec lab06 bash
 ```
 
-[Compose](../compose.yaml#L52-L55) запускает контейнер `lab06` с именем хоста `wrk1`.
+[Compose](../compose.yaml#L52-L57) запускает контейнер `lab06` с именем хоста `wrk1`. При создании Docker копирует подготовленные файлы в отдельный том `/home`. В нём Osec может повторно проверить изменённые файлы и их атрибуты. Том сохраняется при остановке и перезапуске. Для чистого повторения работы выполните на хосте `docker compose up -d --force-recreate --renew-anon-volumes --no-deps lab06`. Эта команда заменит контейнер и его учебные данные.
 
 ## Практические задания
 
@@ -42,12 +42,13 @@ docker compose exec lab06 bash
 ### 7.1. Проверьте инструменты
 
 ```bash
-rpm -q osec osec-mailreport vixie-cron
+rpm -qf "$(command -v osec)" "$(command -v osec_reporter)"
+rpm -q vixie-cron
 osec --version
 command -v osec_reporter crontab crond
 ```
 
-Эти команды заменяют установку модуля и проверку веб-сервера из книги. Утилиты уже установлены при сборке.
+Утилиты уже установлены при сборке. Команда `rpm -qf` показывает фактических поставщиков программ. В ALT p11 ими могут быть `osec-cert` и `osec-cert-mailreport`.
 
 ### 7.2. Создайте первый журнал
 
