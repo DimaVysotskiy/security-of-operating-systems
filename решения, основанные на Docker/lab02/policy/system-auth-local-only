@@ -1,0 +1,9 @@
+#%PAM-1.0
+auth     requisite             pam_faillock.so preauth
+auth     [success=1 default=bad] pam_tcb.so shadow fork
+auth     [default=die]         pam_faillock.so authfail
+auth     required              pam_faillock.so authsucc
+account  required              pam_tcb.so shadow fork
+password requisite             pam_passwdqc.so config=/etc/passwdqc.conf
+password required              pam_tcb.so use_authtok shadow fork nullok write_to=tcb
+session  required              pam_tcb.so
